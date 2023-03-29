@@ -84,6 +84,9 @@ public class HotelService {
         for(Room r : hotel.getRooms()) {
             if(r != null && r.getNumber() == numberRoom)
             {
+                ((SingleRoom) r).setPerson1(new Client());
+                if(r instanceof DoubleRoom)
+                    ((DoubleRoom) r).setPerson2(new Client());
                 r.setAvailability(true);
             }
         }
@@ -125,6 +128,12 @@ public class HotelService {
         }
         else
             System.out.println("No rooms.");
+    }
+
+    public void listUnavailableRooms(Hotel hotel) {
+        for(Room r : hotel.getRooms())
+            if(r != null && r.getAvailability() == false)
+                System.out.println(r);
     }
 
     public void listRooms(Hotel hotel) {

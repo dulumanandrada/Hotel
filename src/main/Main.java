@@ -2,22 +2,51 @@ package main;
 import model.*;
 import service.HotelService;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Meniu.printDescriere();
         Hotel hotel = new Hotel();
         HotelService hotelService = new HotelService();
-
         Scanner scanner = new Scanner(System.in);
 
-        Meniu.printDescriere();
+        try {
+            File myFile = new File("/Users/andradaduluman/IdeaProjects/Hotel/src/input.txt");
+            Scanner myReader = new Scanner(myFile);
+            while(myReader.hasNext()) {
+                String data = myReader.nextLine();
+                switch (data) {
+                    case "single": {
+                        String[] attributes = myReader.nextLine().split("/");
+                        Room newroom = new SingleRoom(Integer.valueOf(attributes[0]), Double.valueOf(attributes[1]));
+                        hotelService.addRoom(hotel, newroom);
+                        break;
+                    }
+                    case "double": {
+                        String[] attributes = myReader.nextLine().split("/");
+                        Room newroom = new DoubleRoom(Integer.valueOf(attributes[0]), Double.valueOf(attributes[1]));
+                        hotelService.addRoom(hotel, newroom);
+                        break;
+                    }
+                    default: {
+                        System.out.println("altceva");
+                    }
+                }
+            }
+            myReader.close();
+        } catch(FileNotFoundException e) {
+            System.out.println("An error has occurred.");
+            e.printStackTrace();
+        }
 
         while(true) {
                 Meniu.printNextCommand();
                 String line = scanner.nextLine();
                 switch (line) {
-                    case "add booking":
+                    case "check in":
                         System.out.println("What kind of room: single/double ?");
                         String roomType1 = scanner.nextLine();
                         switch (roomType1) {
@@ -41,7 +70,7 @@ public class Main {
                                 Person person1 = new Client(details1[0], Integer.valueOf(details1[1]), details1[2]);
                                 System.out.println("What's the second person? name/age/email");
                                 String[] details2 = scanner.nextLine().split("/");
-                                Person person2 = new Client(details2[0], Integer.valueOf(details1[1]), details2[2]);
+                                Person person2 = new Client(details2[0], Integer.valueOf(details2[1]), details2[2]);
                                 hotelService.addBooking(hotel, nrwanted, person1, person2);
                                 hotelService.addClient(hotel, (Client) person1);
                                 hotelService.addClient(hotel, (Client) person2);
@@ -49,6 +78,12 @@ public class Main {
                             }
                             default: System.out.println("This room type doesn't exist.");
                         }
+                        break;
+                    case "check out":
+                        System.out.println("Choose a number of room for which you want to do check out.");
+                        hotelService.listUnavailableRooms(hotel);
+                        int nrwanted = Integer.valueOf(scanner.nextLine());
+                        hotelService.deleteBooking(hotel, nrwanted);
                         break;
                     case "add room":
                         System.out.println("What kind of room: single/double ?");
@@ -72,7 +107,7 @@ public class Main {
                         }
                         break;
                     case "view free rooms":
-                        System.out.println("What kind of room: single/double ?");
+                        System.out.println("What kind of room: single/double/all ?");
                         String roomType3 = scanner.nextLine();
                         switch (roomType3) {
                             case "single": {
@@ -90,7 +125,10 @@ public class Main {
                             default : System.out.println("This product type doesn't exist.");
                         }
                         break;
-                    case "view details rooms":
+                    case "view booked rooms":
+                        hotelService.listUnavailableRooms(hotel);
+                        break;
+                    case "view rooms":
                         hotelService.listRooms(hotel);
                         break;
                     case "view clients":
@@ -114,6 +152,8 @@ public class Main {
                         break;
                     default : System.out.println("This command doesn't exist.");
                 }
+
         }
+
     }
 }

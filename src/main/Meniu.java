@@ -4,11 +4,14 @@ public class Meniu {
     public static String descriereShop = "Servus!\nThis is a Hotel.\nHow can we help you?";
     public static String descriereCommands = "Commands:\n" +
             "- add room = add a new room\n" +
-            "- view details rooms = view all rooms\n" +
+            "- view rooms = view all rooms\n" +
             "- view free rooms = view all available rooms\n" +
-            "- add booking = add a booking (set a room as being unavailable)\n" +
+            "- view booked rooms = view all booked rooms\n" +
+            "- check in = add a booking (set a room as being unavailable)\n" +
+            "- check out = delete a booking (set a room as being available again)\n" +
             "- view clients = view all clients (people that are having a booking)\n" +
             "- add employee = add a new employee\n" +
+            "- delete employee = delete an employee\n" +
             "- view employees = view all employees\n" +
             "- sort employees = sort employees after salary (min->max)\n" +
             "- exit = exiting the program";

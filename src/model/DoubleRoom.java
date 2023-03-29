@@ -10,10 +10,7 @@ public class DoubleRoom extends SingleRoom {
         super(number, price);
     }
 
-    public Person getPerson2() {
-        return person2;
-    }
-    public void setPerson2(Person person1) {
+    public void setPerson2(Person person2) {
         this.person2 = person2;
     }
 

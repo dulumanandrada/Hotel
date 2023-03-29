@@ -6,7 +6,9 @@ public class SingleRoom extends Room {
     public SingleRoom() {
         super();
     }
-
+    public SingleRoom(int number, double price) {
+        super(number, price);
+    }
     public Person getPerson1() {
         return person1;
     }
@@ -16,6 +18,6 @@ public class SingleRoom extends Room {
 
     @Override
     public String toString() {
-        return super.toString() + "first person: " + person1.toString();
+        return super.toString() + "first person: " + person1.toString() ;
     }
 }

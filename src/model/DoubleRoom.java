@@ -6,6 +6,9 @@ public class DoubleRoom extends SingleRoom {
     public DoubleRoom() {
         super();
     }
+    public DoubleRoom(int number, double price) {
+        super(number, price);
+    }
 
     public Person getPerson2() {
         return person2;

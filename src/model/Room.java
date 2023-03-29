@@ -2,11 +2,13 @@ package model;
 
 public abstract class Room {
     private int Number;
-    private Boolean Availability;
+    private Boolean Availability = true;
     private double Price;
 
-    public Room() {
-
+    public Room() { }
+    public Room(int number, double price) {
+        this.Number = number;
+        this.Price = price;
     }
 
     public int getNumber() {
@@ -30,6 +32,6 @@ public abstract class Room {
 
     @Override
     public String toString() {
-        return "Room Number: " + this.Number + " , availability: " + this.Availability + " , price: " + this.Price;
+        return "Room Number: " + this.Number + " , availability: " + this.Availability + " , price: " + this.Price + " ";
     }
 }

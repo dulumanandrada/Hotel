@@ -6,8 +6,8 @@ public class Employee extends Person {
     public Employee() {
         super();
     }
-    public Employee(int id, String name, int age, double salary) {
-        super(id, name, age);
+    public Employee(String name, int age, double salary) {
+        super(name, age);
         this.Salary = salary;
     }
     public void setSalary(double salary) {
@@ -19,6 +19,6 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + " , salary: " + this.Salary;
+        return super.toString() + " , salary: " + this.Salary + " ";
     }
 }

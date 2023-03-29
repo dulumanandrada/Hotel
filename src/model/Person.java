@@ -5,8 +5,7 @@ public abstract class Person {
     private int Age;
 
     public Person() { }
-    public Person(int id, String name, int age) {
-        this.Id = id;
+    public Person(String name, int age) {
         this.Name = name;
         this.Age = age;
     }
@@ -34,6 +33,6 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Id: " + this.Id + " , name: " + this.Name + " , age: " + this.Age;
+        return "Id: " + this.Id + " , name: " + this.Name + " , age: " + this.Age + " ";
     }
 }

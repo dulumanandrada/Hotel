@@ -6,8 +6,8 @@ public class Client extends Person {
     public Client() {
         super();
     }
-    public Client(int id, String name, int age, String email) {
-        super(id, name, age);
+    public Client(String name, int age, String email) {
+        super(name, age);
         this.Email = email;
     }
     public String getEmail() {
@@ -19,6 +19,6 @@ public class Client extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + " , email: " + this.Email;
+        return super.toString() + " , email: " + this.Email + " / ";
     }
 }

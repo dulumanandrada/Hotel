@@ -105,6 +105,9 @@ public class Main {
                     case "view employees":
                         hotelService.listEmployees(hotel);
                         break;
+                    case "sort employees":
+                        hotelService.sortEmployee(hotel);
+                        break;
                     case "exit":
                         Meniu.printGreeting();
                         System.exit(0);

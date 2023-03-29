@@ -1,6 +1,11 @@
 package service;
 import model.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class HotelService {
     public void addRoom(Hotel hotel, Room room) {
         int nrofrooms = hotel.getNumOfRooms();
@@ -20,6 +25,21 @@ public class HotelService {
         for(Person p : hotel.getEmployees()) {
             if(p != null)
                 System.out.println((Employee) p);
+        }
+    }
+
+    public void sortEmployee(Hotel hotel) {
+        List<Person> person = new ArrayList<>();
+        for(Employee p : hotel.getEmployees())
+            if(p != null)
+                person.add(p);
+        if(person.isEmpty())
+            System.out.println("There is no employee working at the hotel.");
+        else {
+            Collections.sort(person, new EmployeeComparator());
+            System.out.println("These are the employees sorted by salary: ");
+            for(Person p : person)
+                System.out.println(p);
         }
     }
 

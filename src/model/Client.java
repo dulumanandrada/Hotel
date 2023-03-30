@@ -10,15 +10,9 @@ public class Client extends Person {
         super(name, age);
         this.Email = email;
     }
-    public String getEmail() {
-        return this.Email;
-    }
-    public void setEmail(String email) {
-        this.Email = email;
-    }
 
     @Override
     public String toString() {
-        return super.toString() + " , email: " + this.Email + " ";
+        return super.toString() + " , email: " + this.Email + "\n";
     }
 }

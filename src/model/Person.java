@@ -1,6 +1,5 @@
 package model;
 public abstract class Person {
-    private int Id;
     private String Name;
     private int Age;
 
@@ -10,20 +9,11 @@ public abstract class Person {
         this.Age = age;
     }
     //get-eri
-    public int getId() {
-        return Id;
-    }
     public String getName() {
         return Name;
     }
-    public int getAge() {
-        return Age;
-    }
 
     //set-eri
-    public void setId(int id) {
-        Id = id;
-    }
     public void setName(String name) {
         Name = name;
     }
@@ -31,8 +21,12 @@ public abstract class Person {
         Age = age;
     }
 
+    public int getAge() {
+        return Age;
+    }
+
     @Override
     public String toString() {
-        return "Id: " + this.Id + " , name: " + this.Name + " , age: " + this.Age + " ";
+        return "Person name: " + this.Name + " , age: " + this.Age + " ";
     }
 }

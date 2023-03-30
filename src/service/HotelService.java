@@ -1,30 +1,28 @@
 package service;
 import model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class HotelService {
     public void addRoom(Hotel hotel, Room room) {
-        int nrofrooms = hotel.getNumOfRooms();
         hotel.setNumOfRooms();
-        hotel.getRooms()[nrofrooms] = room;
+        hotel.getRooms().add(room);
         System.out.println("The room has been added.");
     }
 
     public void addEmployee(Hotel hotel, Employee employee) {
-        int nrofemployees = hotel.getNumOfEmployees();
-        hotel.setNumOfEmployees();
-        hotel.getEmployees()[nrofemployees] = employee;
+        hotel.getEmployees().add(employee);
         System.out.println("The employee has been added.");
     }
 
     public void listEmployees(Hotel hotel) {
-        for(Person p : hotel.getEmployees()) {
-            if(p != null)
-                System.out.println((Employee) p);
+        if(hotel.getEmployees().isEmpty())
+            System.out.println("There is no employee working at the hotel.");
+        else {
+            for(Person p : hotel.getEmployees()) {
+                if(p != null)
+                    System.out.print((Employee) p);
+            }
         }
     }
 
@@ -53,44 +51,57 @@ public class HotelService {
     public void listClients(Hotel hotel) {
         for(Person p : hotel.getClients()) {
             if(p != null)
-                System.out.println((Client) p);
+                System.out.print((Client) p);
         }
     }
 
     public void addBooking(Hotel hotel, int numberRoom, Person person1) {
+        boolean ok = false;
         for(Room r : hotel.getRooms()) {
-            if(r != null && r.getNumber() == numberRoom)
+            if(r != null && r.getNumber() == numberRoom && r.getAvailability() == true)
             {
                 ((SingleRoom) r).setPerson1(person1);
                 r.setAvailability(false);
+                ok = true;
             }
         }
-        System.out.println("The booking has been made.");
+        if(ok == true)
+            System.out.println("The booking has been made.");
+        else System.out.println("There is no room with this number to do check in for.");
     }
 
     public void addBooking(Hotel hotel, int numberRoom, Person person1, Person person2) {
+        boolean ok = false;
         for(Room r : hotel.getRooms()) {
-            if(r != null && r.getNumber() == numberRoom)
+            if(r != null && r.getNumber() == numberRoom && r.getAvailability() == true)
             {
                 ((DoubleRoom) r).setPerson1(person1);
                 ((DoubleRoom) r).setPerson2(person2);
                 r.setAvailability(false);
+                ok = true;
             }
         }
-        System.out.println("The booking has been added.");
+        if(ok == true)
+            System.out.println("The booking has been added.");
+        else System.out.println("There is no room with this number to do check in for.");
     }
 
     public void deleteBooking(Hotel hotel, int numberRoom) {
+        boolean found = false;
         for(Room r : hotel.getRooms()) {
-            if(r != null && r.getNumber() == numberRoom)
+            if(r != null && r.getNumber() == numberRoom && r.getAvailability() == false)
             {
                 ((SingleRoom) r).setPerson1(new Client());
                 if(r instanceof DoubleRoom)
                     ((DoubleRoom) r).setPerson2(new Client());
                 r.setAvailability(true);
+                found = true;
             }
         }
-        System.out.println("The booking has been deleted.");
+        if(found == true)
+            System.out.println("The booking has been deleted.");
+        else
+            System.out.println("There is no room with this number to do check out for.");
     }
 
     public void listAvailableRooms(Hotel hotel, String type) {
@@ -140,5 +151,22 @@ public class HotelService {
         for(Room r : hotel.getRooms())
             if(r != null)
                 System.out.println(r);
+    }
+
+    public void howManyRooms(Hotel hotel) {
+        int nrS = 0, nrD = 0;
+        for(Room r : hotel.getRooms())
+            if(r != null && r instanceof DoubleRoom)
+                nrD ++;
+            else if(r != null && r instanceof SingleRoom)
+                nrS ++;
+        System.out.println("There are " + nrS + " single rooms and " + nrD + " double rooms.");
+    }
+
+    public void sortRoomsDesc(Hotel hotel) {
+        Collections.sort(hotel.getRooms(), Collections.reverseOrder(new RoomComparator()));
+    }
+    public void sortRoomsAsc(Hotel hotel) {
+        Collections.sort(hotel.getRooms(), new RoomComparator());
     }
 }

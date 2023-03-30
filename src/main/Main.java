@@ -129,6 +129,17 @@ public class Main {
             case "sort employees":
                 hotelService.sortEmployee(hotel);
                 break;
+            case "how many":
+                hotelService.howManyRooms(hotel);
+                break;
+            case "sort rooms asc":
+                hotelService.sortRoomsAsc(hotel);
+                hotelService.listRooms(hotel);
+                break;
+            case "sort rooms desc":
+                hotelService.sortRoomsDesc(hotel);
+                hotelService.listRooms(hotel);
+                break;
             case "exit":
                 Meniu.printGreeting();
                 System.exit(0);
@@ -141,26 +152,44 @@ public class Main {
         System.out.println("Choose the number of wanted room.");
         hotelService.listAvailableRooms(hotel, "single");
         int nrwanted = Integer.valueOf(scanner.nextLine());
-        System.out.println("What's the person? name/age/email");
-        String[] details1 = scanner.nextLine().split("/");
-        Person person1 = new Client(details1[0], Integer.valueOf(details1[1]), details1[2]);
-        hotelService.addBooking(hotel, nrwanted, person1);
-        hotelService.addClient(hotel, (Client) person1);
+        boolean ok = false;
+        for(Room r : hotel.getRooms()) {
+            if(r != null && r.getNumber() == nrwanted && r.getAvailability() == true)
+                ok = true;
+        }
+        if(ok == false)
+            System.out.println("There is no room with this number to do check in for.");
+        else {
+            System.out.println("What's the person? name/age/email");
+            String[] details1 = scanner.nextLine().split("/");
+            Person person1 = new Client(details1[0], Integer.valueOf(details1[1]), details1[2]);
+            hotelService.addBooking(hotel, nrwanted, person1);
+            hotelService.addClient(hotel, (Client) person1);
+        }
     }
 
     public static void checkInDouble(Hotel hotel, HotelService hotelService, Scanner scanner) {
         System.out.println("Choose the number of wanted room.");
         hotelService.listAvailableRooms(hotel, "double");
         int nrwanted = Integer.valueOf(scanner.nextLine());
-        System.out.println("What's the first person? name/age/email");
-        String[] details1 = scanner.nextLine().split("/");
-        Person person1 = new Client(details1[0], Integer.valueOf(details1[1]), details1[2]);
-        System.out.println("What's the second person? name/age/email");
-        String[] details2 = scanner.nextLine().split("/");
-        Person person2 = new Client(details2[0], Integer.valueOf(details2[1]), details2[2]);
-        hotelService.addBooking(hotel, nrwanted, person1, person2);
-        hotelService.addClient(hotel, (Client) person1);
-        hotelService.addClient(hotel, (Client) person2);
+        boolean ok = false;
+        for(Room r : hotel.getRooms()) {
+            if(r != null && r.getNumber() == nrwanted && r.getAvailability() == true)
+                ok = true;
+        }
+        if(ok == false)
+            System.out.println("There is no room with this number to do check in for.");
+        else {
+            System.out.println("What's the first person? name/age/email");
+            String[] details1 = scanner.nextLine().split("/");
+            Person person1 = new Client(details1[0], Integer.valueOf(details1[1]), details1[2]);
+            System.out.println("What's the second person? name/age/email");
+            String[] details2 = scanner.nextLine().split("/");
+            Person person2 = new Client(details2[0], Integer.valueOf(details2[1]), details2[2]);
+            hotelService.addBooking(hotel, nrwanted, person1, person2);
+            hotelService.addClient(hotel, (Client) person1);
+            hotelService.addClient(hotel, (Client) person2);
+        }
     }
 
     public static void checkOut(Hotel hotel, HotelService hotelService, Scanner scanner) {
@@ -198,7 +227,7 @@ public class Main {
         }
     }
 
-    public  static void addEmployee(Hotel hotel, HotelService hotelService, Scanner scanner) {
+    public static void addEmployee(Hotel hotel, HotelService hotelService, Scanner scanner) {
         try {
             String[] details = scanner.nextLine().split("/");
             Person person = new Employee(details[0], Integer.valueOf(details[1]), Double.valueOf(details[2]));

@@ -32,6 +32,6 @@ public abstract class Room {
 
     @Override
     public String toString() {
-        return "Room Number: " + this.Number + " , availability: " + this.Availability + " , price: " + this.Price + " ";
+        return "###### Room Number: " + this.Number + " ######\n- availability: " + this.Availability + "\n- price: " + this.Price + "\n";
     }
 }

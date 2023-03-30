@@ -16,7 +16,6 @@ public class DoubleRoom extends SingleRoom {
 
     @Override
     public String toString() {
-        return super.toString() +
-                "\n             second person: " + person2.toString();
+        return super.toString() + "second person: " + person2.toString();
     }
 }

@@ -11,17 +11,11 @@ public class Hotel {
 
     public Hotel() { }
 
-    public void setName(String name) {
-        Name = name;
-    }
     public void setNumOfClients() {
         this.numOfClients ++;
     }
     public void setNumOfEmployees() {
         this.numOfEmployees ++;
-    }
-    public String getName() {
-        return Name;
     }
     public Client[] getClients() {
         return clients;
@@ -43,8 +37,5 @@ public class Hotel {
     }
     public Room[] getRooms() {
         return rooms;
-    }
-    public void setRooms(Room[] rooms) {
-        this.rooms = rooms;
     }
 }

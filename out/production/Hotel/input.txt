@@ -1,20 +1,28 @@
+add room
 single
 101/130
+add room
 single
 102/120
+add room
 single
 103/150
+add room
 single
 104/120
+add room
 single
 105/140
+add room
 double
 203/210
+add room
 double
 201/280
+add room
 double
 208/240
-double
-210/230
-double
-202/260
+add employee
+ana/23/1200
+
+

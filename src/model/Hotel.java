@@ -1,35 +1,35 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Hotel {
     private String Name;
-    private Client[] clients = new Client[101];
-    //private Employee[] employees = new Employee[101];
-    private Set<Employee> employees = new HashSet<Employee>();
+    //private Client[] clients = new Client[101];
+    private List<Client> clients = new ArrayList<>();
+
+    //private Set<Employee> employees = new HashSet<Employee>();
+    private HashMap<Integer, Employee> employees = new HashMap<>();
+    int numOfEmployees = 0;
     private List<Room> rooms = new ArrayList<>();
     private int numOfClients = 0;
     private int numOfRooms = 0;
 
     public Hotel() { }
 
-    public void setNumOfClients() {
-        this.numOfClients ++;
+    public void setNumOfEmployees() {
+        this.numOfEmployees ++;
     }
-    public Client[] getClients() {
+    public List<Client> getClients() {
         return clients;
     }
-    public HashSet<Employee> getEmployees() {
-        return (HashSet<Employee>) employees;
+    public HashMap<Integer, Employee> getEmployees() {
+        return (HashMap<Integer, Employee>) employees;
     }
-    public int getNumOfClients() {
-        return numOfClients;
+    public int getNumOfEmployees() {
+        return numOfEmployees;
     }
     public int getNumOfRooms() {
-        return numOfRooms;
+        return numOfRooms++;
     }
     public void setNumOfRooms() {
         this.numOfRooms ++;

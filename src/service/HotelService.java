@@ -11,7 +11,9 @@ public class HotelService {
     }
 
     public void addEmployee(Hotel hotel, Employee employee) {
-        hotel.getEmployees().add(employee);
+        //hotel.getEmployees().add(employee);
+        hotel.getEmployees().put(hotel.getNumOfEmployees(), employee);
+        hotel.setNumOfEmployees();
         System.out.println("The employee has been added.");
     }
 
@@ -19,16 +21,15 @@ public class HotelService {
         if(hotel.getEmployees().isEmpty())
             System.out.println("There is no employee working at the hotel.");
         else {
-            for(Person p : hotel.getEmployees()) {
-                if(p != null)
-                    System.out.print((Employee) p);
+            for (Employee e : hotel.getEmployees().values()) {
+                System.out.println(e);
             }
         }
     }
 
     public void sortEmployee(Hotel hotel) {
         List<Person> person = new ArrayList<>();
-        for(Employee p : hotel.getEmployees())
+        for(Employee p : hotel.getEmployees().values())
             if(p != null)
                 person.add(p);
         if(person.isEmpty())
@@ -42,17 +43,21 @@ public class HotelService {
     }
 
     public void addClient(Hotel hotel, Client client) {
-        int nrofclients = hotel.getNumOfClients();
-        hotel.setNumOfClients();
-        hotel.getClients()[nrofclients] = client;
+        hotel.getClients().add(client);
         System.out.println("The client has been added.");
     }
 
     public void listClients(Hotel hotel) {
-        for(Person p : hotel.getClients()) {
-            if(p != null)
-                System.out.print((Client) p);
-        }
+        int nr = 0;
+            for(Person p : hotel.getClients()) {
+                if(p != null)
+                {
+                    System.out.print((Client) p);
+                    nr ++;
+                }
+            }
+        if(nr == 0)
+            System.out.println("There is no client at the hotel.");
     }
 
     public void addBooking(Hotel hotel, int numberRoom, Person person1) {
@@ -91,9 +96,14 @@ public class HotelService {
         for(Room r : hotel.getRooms()) {
             if(r != null && r.getNumber() == numberRoom && r.getAvailability() == false)
             {
+                Client c = (Client)((SingleRoom) r).getPerson1();
+                deleteClient(hotel, c);
                 ((SingleRoom) r).setPerson1(new Client());
-                if(r instanceof DoubleRoom)
+                if(r instanceof DoubleRoom) {
+                    Client c1 = (Client)((DoubleRoom) r).getPerson2();
+                    deleteClient(hotel, c1);
                     ((DoubleRoom) r).setPerson2(new Client());
+                }
                 r.setAvailability(true);
                 found = true;
             }
@@ -102,6 +112,11 @@ public class HotelService {
             System.out.println("The booking has been deleted.");
         else
             System.out.println("There is no room with this number to do check out for.");
+    }
+
+    public void deleteClient(Hotel hotel, Client client) {
+        hotel.getClients().remove(client);
+        System.out.println("The client has been deleted");
     }
 
     public void listAvailableRooms(Hotel hotel, String type) {
@@ -142,25 +157,45 @@ public class HotelService {
     }
 
     public void listUnavailableRooms(Hotel hotel) {
+        int nr = 0;
         for(Room r : hotel.getRooms())
             if(r != null && r.getAvailability() == false)
+            {
                 System.out.println(r);
+                nr ++;
+            }
+        if(nr == 0)
+            System.out.println("There is no unavailable room.");
     }
 
     public void listRooms(Hotel hotel) {
-        for(Room r : hotel.getRooms())
-            if(r != null)
-                System.out.println(r);
+        if(hotel.getRooms().isEmpty())
+            System.out.println("There is no room at the hotel.");
+        else {
+            for(Room r : hotel.getRooms())
+                if(r != null)
+                    System.out.println(r);
+        }
     }
 
     public void howManyRooms(Hotel hotel) {
         int nrS = 0, nrD = 0;
+        int nrSfree = 0, nrDfree = 0;
         for(Room r : hotel.getRooms())
             if(r != null && r instanceof DoubleRoom)
+            {
                 nrD ++;
+                if(r.getAvailability() == true)
+                    nrDfree ++;
+            }
             else if(r != null && r instanceof SingleRoom)
+            {
                 nrS ++;
-        System.out.println("There are " + nrS + " single rooms and " + nrD + " double rooms.");
+                if(r.getAvailability() == true)
+                    nrSfree ++;
+            }
+        System.out.println("There are " + nrS + " single rooms (" + nrSfree + " vailable) "+ "and "
+                + nrD + " double rooms (" + nrDfree + " vailable).");
     }
 
     public void sortRoomsDesc(Hotel hotel) {

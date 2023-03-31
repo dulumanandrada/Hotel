@@ -13,7 +13,9 @@ public class DoubleRoom extends SingleRoom {
     public void setPerson2(Person person2) {
         this.person2 = person2;
     }
-
+    public Person getPerson2() {
+        return person2;
+    }
     @Override
     public String toString() {
         return super.toString() + "second person: " + person2.toString();

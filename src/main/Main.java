@@ -123,6 +123,13 @@ public class Main {
                 System.out.println("Please insert details of the employee. name/age/salary");
                 addEmployee(hotel, hotelService, scanner);
                 break;
+            case "delete employee":
+                System.out.println("PLease insert the ID of the employee you want to remove.");
+                for(int id : hotel.getEmployees().keySet()) {
+                    System.out.println("ID: " + id + " " + hotel.getEmployees().get(id));
+                }
+                deleteEmployee(hotel, hotelService, scanner);
+                break;
             case "see employees":
                 hotelService.listEmployees(hotel);
                 break;
@@ -236,6 +243,24 @@ public class Main {
             System.out.println("Invalid input for creation. The employee was not added.");
         }catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Not enough attributes as input. The employee was not added.");
+        }catch (TooManyProductsException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static  void deleteEmployee(Hotel hotel, HotelService hotelService, Scanner scanner) {
+        try {
+            String[] details = scanner.nextLine().split("/");
+            Integer id = Integer.valueOf(details[0]);
+            if(hotel.getEmployees().containsKey(id)) {
+                hotel.getEmployees().remove(id);
+                System.out.println("The employee has been deleted.");
+            }
+            else System.out.println("Invalid number id.");
+        }catch (NumberFormatException e) {
+            System.out.println("Invalid input for delete. The employee was not deleted.");
+        }catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Not enough attributes as input. The employee was not deleted.");
         }catch (TooManyProductsException e) {
             System.out.println(e.getMessage());
         }

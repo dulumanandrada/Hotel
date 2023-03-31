@@ -6,7 +6,7 @@ public class Meniu {
             "______________________________________________________________________\n" +
             "|                              COMMANDS                              |\n" +
             "|- add room = add a new room                                         |\n" +
-            "|- haw many = see how many single and double rooms are               |\n" +
+            "|- how many = see how many single and double rooms are               |\n" +
             "|- see rooms = view all rooms                                        |\n" +
             "|- see free rooms = view all available rooms                         |\n" +
             "|- see booked rooms = view all booked rooms                          |\n" +
@@ -16,6 +16,7 @@ public class Meniu {
             "|- check out = delete a booking (set a room as being available again)|\n" +
             "|- see clients = view all clients (people that are having a booking) |\n" +
             "|- add employee = add a new employee                                 |\n" +
+            "|- delete employee = delete an employee after the id                 |\n" +
             "|- see employees = view all employees                                |\n" +
             "|- sort employees = sort employees after salary (min->max)           |\n" +
             "|- exit = exiting the program                                        |\n" +

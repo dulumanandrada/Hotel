@@ -1,11 +1,15 @@
 package model;
 
 public class Employee extends Person {
-    private int Id;
+    private long Id;
     private double Salary;
 
     public Employee() {
         super();
+    }
+    public Employee(long id, String name, int age, double salary) {
+        super(id, name, age);
+        this.Salary = salary;
     }
     public Employee(String name, int age, double salary) {
         super(name, age);

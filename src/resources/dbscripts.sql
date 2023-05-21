@@ -71,3 +71,31 @@ ADD CONSTRAINT `FK_employee_person`
   REFERENCES `myHotel`.`person` (`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+
+ALTER TABLE `myHotel`.`singleroom`
+ADD CONSTRAINT `FK_singleroom_room`
+  FOREIGN KEY (`id`)
+  REFERENCES `myHotel`.`room` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `myHotel`.`singleroom`
+ADD CONSTRAINT `FK_singleroom_person`
+  FOREIGN KEY (`id_firstperson`)
+  REFERENCES `myHotel`.`person` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `myHotel`.`doubleroom`
+ADD CONSTRAINT `FK_doubleroom_person`
+  FOREIGN KEY (`id_secondperson`)
+  REFERENCES `myHotel`.`person` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `myHotel`.`doubleroom`
+ADD CONSTRAINT `FK_doubleroom_singleroom`
+  FOREIGN KEY (`id`)
+  REFERENCES `myHotel`.`singleroom` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

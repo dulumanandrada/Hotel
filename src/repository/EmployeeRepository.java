@@ -1,7 +1,6 @@
 package repository;
 
 import config.DatabaseConnection;
-import model.Client;
 import model.Employee;
 import model.Person;
 
@@ -11,45 +10,52 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientRepository {
-    public void createClient(Client client) {
+public class EmployeeRepository {
+    public void createEmployee(Employee employee) {
         PersonRepository personRepository = new PersonRepository();
-        Person person = (Person) client;
+        Person person = (Person) employee;
         personRepository.createPerson(person);
-        String sql = "insert into client values (?, ?) ";
+        String sql = "insert into employee values (?, ?) ";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
             statement.setLong(1, personRepository.getIdOfPerson(person));
-            statement.setString(2, client.getEmail());
+            statement.setDouble(2, employee.getSalary());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public List<Client> readAllClients() {
-        List<Client> clientList = new ArrayList<>();
-        String sql = "select * from client c, person p where c.id = p.id";
+    public List<Employee> readAllEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        String sql = "select * from employee e, person p where e.id = p.id";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ResultSet result = statement.executeQuery();
             while(result.next()) {
                 long id = result.getLong("id");
                 String name = result.getString("name");
                 int age = result.getInt("age");
-                String email = result.getString("email");
-                Client client = new Client(id, name, age, email);
-                clientList.add(client);
+                double salary = result.getDouble("salary");
+                Employee employee = new Employee(id, name, age, salary);
+                employeeList.add(employee);
             }
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return clientList;
+        return employeeList;
     }
-    public void deleteClientById(long id) {
-        String sql = "delete from client where id = ?";
+
+    public void deleteEmployeeById(long id) {
+        String sql = "delete from employee where id = ?";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
             statement.setLong(1, id);
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public void deleteEmployee(Employee employee) {
+        PersonRepository personRepository = new PersonRepository();
+        Person person = (Person) employee;
+        long id = personRepository.getIdOfPerson(person);
+        deleteEmployeeById(id);
     }
 }

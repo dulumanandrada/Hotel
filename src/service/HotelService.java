@@ -1,4 +1,5 @@
 package service;
+import exception.TooManyProductsException;
 import model.*;
 
 import java.util.*;
@@ -10,11 +11,16 @@ public class HotelService {
         System.out.println("The room has been added.");
     }
 
-    public void addEmployee(Hotel hotel, Employee employee) {
+    public void addEmployee(Hotel hotel, String[] details) {
         //hotel.getEmployees().add(employee);
-        hotel.getEmployees().put(hotel.getNumOfEmployees(), employee);
-        hotel.setNumOfEmployees();
-        System.out.println("The employee has been added.");
+        try{
+            Person person = new Employee(details[0], Integer.valueOf(details[1]), Double.valueOf(details[2]));
+            hotel.getEmployees().put(hotel.getNumOfEmployees(), (Employee) person);
+            hotel.setNumOfEmployees();
+            System.out.println("The employee has been added.");
+        }catch(NumberFormatException e) {
+            throw new TooManyProductsException("banana");
+        }
     }
 
     public void listEmployees(Hotel hotel) {

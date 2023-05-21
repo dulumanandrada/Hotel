@@ -1,6 +1,7 @@
 package model;
 
 public class Employee extends Person {
+    private int Id;
     private double Salary;
 
     public Employee() {

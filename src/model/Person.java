@@ -1,5 +1,6 @@
 package model;
 public abstract class Person {
+    private int Id;
     private String Name;
     private int Age;
 
@@ -8,12 +9,14 @@ public abstract class Person {
         this.Name = name;
         this.Age = age;
     }
-    //get-eri
+
+    public int getId() {
+        return Id;
+    }
+
     public String getName() {
         return Name;
     }
-
-    //set-eri
     public void setName(String name) {
         Name = name;
     }

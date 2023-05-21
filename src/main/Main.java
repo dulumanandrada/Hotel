@@ -1,6 +1,9 @@
 package main;
 import exception.TooManyProductsException;
 import model.*;
+import repository.ClientRepository;
+import repository.PersonRepository;
+import service.BankService;
 import service.HotelService;
 
 import java.io.File;
@@ -151,6 +154,26 @@ public class Main {
                 Meniu.printGreeting();
                 System.exit(0);
                 break;
+            case "yo":
+//                BankService bankService = new BankService();
+//                addBank(bankService, scanner);
+                Client client = new Client();
+                String[] att = scanner.nextLine().split("/");
+                client.setName(att[0]);
+                client.setAge(Integer.valueOf(att[1]));
+                client.setEmail(att[2]);
+                ClientRepository clientRepository = new ClientRepository();
+                clientRepository.createClient(client);
+                break;
+            case "yo2":
+                Client client2 = new Client();
+                String[] att2 = scanner.nextLine().split("/");
+                client2.setName(att2[0]);
+                client2.setAge(Integer.valueOf(att2[1]));
+                client2.setEmail(att2[2]);
+                PersonRepository personRepository = new PersonRepository();
+                personRepository.deletePerson((Person)client2);
+                break;
             default : System.out.println("This command doesn't exist.");
         }
     }
@@ -237,10 +260,10 @@ public class Main {
     public static void addEmployee(Hotel hotel, HotelService hotelService, Scanner scanner) {
         try {
             String[] details = scanner.nextLine().split("/");
-            Person person = new Employee(details[0], Integer.valueOf(details[1]), Double.valueOf(details[2]));
-            hotelService.addEmployee(hotel, (Employee) person);
-        }catch (NumberFormatException e) {
-            System.out.println("Invalid input for creation. The employee was not added.");
+//            Person person = new Employee(details[0], Integer.valueOf(details[1]), Double.valueOf(details[2]));
+            hotelService.addEmployee(hotel, details);
+//        }catch (NumberFormatException e) {
+//            System.out.println("Invalid input for creation. The employee was not added.");
         }catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Not enough attributes as input. The employee was not added.");
         }catch (TooManyProductsException e) {
@@ -263,6 +286,18 @@ public class Main {
             System.out.println("Not enough attributes as input. The employee was not deleted.");
         }catch (TooManyProductsException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addBank(BankService bankService, Scanner scanner) {
+        System.out.println("Please specify name/age");
+        try {
+            Bank bank = bankService.build(scanner.nextLine());
+            bankService.addBank(bank);
+        }catch (NumberFormatException e) {
+            System.out.println("invalid inputs for bank.");
+        }catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Not enough inputs for bank.");
         }
     }
 }

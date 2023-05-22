@@ -6,6 +6,7 @@ import repository.PersonRepository;
 import service.AuditService;
 import service.ClientService;
 import service.HotelService;
+import singleton.ClientSingleton;
 
 import java.security.spec.ECField;
 import java.util.Scanner;
@@ -13,48 +14,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Meniu.printDescriere();
-//        Hotel hotel = new Hotel();
         HotelService hotelService = new HotelService();
         AuditService auditService = new AuditService();
+
+        // --> delete everything is in database in order not to exist conflicts of duplicates
+        // --> then seed with data from csv in database
+        hotelService.deleteAllDatabase();
+        hotelService.seedData();
+
         Scanner scanner = new Scanner(System.in);
-
-//        try {
-//            File myFile = new File("/Users/andradaduluman/IdeaProjects/Hotel/src/input.txt");
-//            Scanner myReader = new Scanner(myFile);
-//            while(myReader.hasNext()) {
-//                String data = myReader.nextLine();
-//                switch (data) {
-//                    case "add room":
-//                        String roomType2 = myReader.nextLine();
-//                        switch (roomType2) {
-//                            case "single": {
-//                                addSingleRoom(hotel, hotelService, myReader);
-//                                break;
-//                            }
-//                            case "double": {
-//                                addDoubleRoom(hotel, hotelService, myReader);
-//                                break;
-//                            }
-//                            default : System.out.println("This room type doesn't exist.");
-//                        }
-//                        break;
-//                    case "add employee":
-//                        addEmployee(hotel, hotelService, myReader);
-//                        break;
-//                    default : System.out.println("This command doesn't exist.");
-//                }
-//            }
-//            myReader.close();
-//        } catch(FileNotFoundException e) {
-//            System.out.println("An error has occurred.");
-//            e.printStackTrace();
-//        }
-
         while(true) {
                 Meniu.printNextCommand();
                 handleTasks(hotelService,auditService, scanner);
         }
-
     }
 
     public static void handleTasks(HotelService hotelService,AuditService auditService, Scanner scanner) {
@@ -193,6 +165,7 @@ public class Main {
                     break;
                 case "exit":
                     Meniu.printGreeting();
+                    hotelService.exportData();
                     System.exit(0);
                     break;
                 default:

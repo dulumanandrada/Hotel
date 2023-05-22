@@ -30,4 +30,7 @@ public class DoubleRoomService {
     public void deleteDoubleRoomById(long id) {
         doubleRoomRepository.deleteDoubleRoomById(id);
     }
+    public void deleteDoubleRoomAll() {
+        doubleRoomRepository.deleteDoubleRoomAll();
+    }
 }

@@ -48,4 +48,8 @@ public class SingleRoomRepository {
         RoomRepository roomRepository = new RoomRepository();
         roomRepository.deleteRoomById(id);
     }
+    public void deleteSingleRoomAll() {
+        RoomRepository roomRepository = new RoomRepository();
+        roomRepository.deleteRoomAll();
+    }
 }

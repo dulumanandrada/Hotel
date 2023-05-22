@@ -53,4 +53,8 @@ public class DoubleRoomRepository {
         SingleRoomRepository singleRoomRepository = new SingleRoomRepository();
         singleRoomRepository.deleteSingleRoomById(id);
     }
+    public void deleteDoubleRoomAll() {
+        SingleRoomRepository singleRoomRepository = new SingleRoomRepository();
+        singleRoomRepository.deleteSingleRoomAll();
+    }
 }

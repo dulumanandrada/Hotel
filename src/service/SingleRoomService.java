@@ -29,4 +29,7 @@ public class SingleRoomService {
     public void deleteSingleRoomById(long id) {
         singleRoomRepository.deleteSingleRoomById(id);
     }
+    public void deleteSingleRoomAll() {
+        singleRoomRepository.deleteSingleRoomAll();
+    }
 }

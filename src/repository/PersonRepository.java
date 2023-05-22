@@ -53,10 +53,9 @@ public class PersonRepository {
 //        }
 //        return ;
 //    }
-    public void deletePerson(Person person) {
-        String sql = "delete from person where id = ?";
+    public void deletePersonAll() {
+        String sql = "delete from person";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
-            statement.setLong(1, getIdOfPerson(person));
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

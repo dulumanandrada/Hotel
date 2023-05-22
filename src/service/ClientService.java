@@ -28,6 +28,9 @@ public class ClientService {
     public void deleteClientById(long id) {
         clientRepository.deleteClientById(id);
     }
+    public void deleteClientAll() {
+        clientRepository.deleteClientAll();
+    }
     public List<Client> readAllClients() {
         return clientRepository.readAllClients();
     }

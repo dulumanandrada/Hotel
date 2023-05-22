@@ -14,6 +14,10 @@ public class SingleRoom extends Room {
         super(id, number, availability, price);
         this.firstPerson = person;
     }
+    public SingleRoom(int number, boolean availability, double price, Person person) {
+        super(number, availability, price);
+        this.firstPerson = person;
+    }
     public Person getFirstPerson() {
         return firstPerson;
     }
@@ -24,5 +28,8 @@ public class SingleRoom extends Room {
     @Override
     public String toString() {
         return super.toString() + "first person: " + firstPerson.toString() ;
+    }
+    public String toCSV() {
+        return super.toCSV() + "," + firstPerson.toCSV();
     }
 }

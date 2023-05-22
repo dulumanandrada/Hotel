@@ -42,4 +42,12 @@ public class RoomRepository {
             e.printStackTrace();
         }
     }
+    public void deleteRoomAll() {
+        String sql = "delete from room";
+        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

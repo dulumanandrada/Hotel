@@ -37,4 +37,7 @@ public abstract class Person {
     public String toString() {
         return "Person ID: " + this.Id + " name: " + this.Name + " , age: " + this.Age + " ";
     }
+    public String toCSV() {
+        return this.Name + "," + this.Age;
+    }
 }

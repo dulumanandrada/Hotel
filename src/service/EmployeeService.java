@@ -26,8 +26,8 @@ public class EmployeeService {
         employeeRepository.createEmployee(employee);
     }
 
-    public void deleteEmployee(Employee employee) {
-        employeeRepository.deleteEmployee(employee);
+    public void deleteEmployeeAll() {
+        employeeRepository.deleteEmployeeAll();
     }
     public void deleteEmployeeById(long id) {
         employeeRepository.deleteEmployeeById(id);

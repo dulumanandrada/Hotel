@@ -1,11 +1,21 @@
 package service;
 import exception.TooManyProductsException;
 import model.*;
+import repository.PersonRepository;
+import repository.RoomRepository;
+import singleton.ClientSingleton;
+import singleton.DoubleRoomSingleton;
+import singleton.EmployeeSingleton;
+import singleton.SingleRoomSingleton;
 
 import java.util.*;
 
 public class HotelService {
     private final Hotel hotel;
+    private List<Client> clients = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
+    private List<SingleRoom> singleRooms = new ArrayList<>();
+    private List<DoubleRoom> doubleRooms = new ArrayList<>();
     private final EmployeeService employeeService;
     private final ClientService clientService;
     private final SingleRoomService singleRoomService;
@@ -16,6 +26,59 @@ public class HotelService {
         this.clientService = new ClientService();
         this.singleRoomService = new SingleRoomService();
         this.doubleRoomService = new DoubleRoomService();
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+    public void setSingleRooms(List<SingleRoom> singleRooms) {
+        this.singleRooms = singleRooms;
+    }
+    public void setDoubleRooms(List<DoubleRoom> doubleRooms) {
+        this.doubleRooms = doubleRooms;
+    }
+    public void deleteAllDatabase() {
+        PersonRepository personRepository = new PersonRepository();
+        personRepository.deletePersonAll();
+        RoomRepository roomRepository = new RoomRepository();
+        roomRepository.deleteRoomAll();
+    }
+    public void seedData() {
+        ClientSingleton.getInstance().loadFromCSV();
+        this.setClients(ClientSingleton.getInstance().getClients());
+        for(Client c : clients)
+            clientService.createClient(c);
+
+        EmployeeSingleton.getInstance().loadFromCSV();
+        this.setEmployees(EmployeeSingleton.getInstance().getEmployees());
+        for(Employee e : employees)
+            employeeService.createEmployee(e);
+
+        SingleRoomSingleton.getInstance().loadFromCSV();
+        this.setSingleRooms(SingleRoomSingleton.getInstance().getSingleRooms());
+        for(SingleRoom s : singleRooms)
+            singleRoomService.createSingleRoom(s);
+
+        DoubleRoomSingleton.getInstance().loadFromCSV();
+        this.setDoubleRooms(DoubleRoomSingleton.getInstance().getDoubleRooms());
+        for(DoubleRoom d : doubleRooms)
+            doubleRoomService.createDoubleRoom(d);
+    }
+    public void exportData() {
+        ClientSingleton.getInstance().setClients(clientService.readAllClients());
+        ClientSingleton.getInstance().dumpToCSV();
+
+        EmployeeSingleton.getInstance().setEmployees(employeeService.readAllEmployees());
+        EmployeeSingleton.getInstance().dumpToCSV();
+
+        SingleRoomSingleton.getInstance().setSingleRooms(singleRoomService.readAllSingleRooms());
+        SingleRoomSingleton.getInstance().dumpToCSV();
+
+        DoubleRoomSingleton.getInstance().setDoubleRooms(doubleRoomService.readAllDoubleRooms());
+        DoubleRoomSingleton.getInstance().dumpToCSV();
     }
     public void addSingleRoom(String details) {
         try{

@@ -70,4 +70,12 @@ public class ClientRepository {
             e.printStackTrace();
         }
     }
+    public void deleteClientAll() {
+        String sql = "delete from client";
+        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

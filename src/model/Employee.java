@@ -54,4 +54,7 @@ public class Employee extends Person {
             return false;
         return true;
     }
+    public String toCSV() {
+        return super.toCSV() + "," + Salary;
+    }
 }

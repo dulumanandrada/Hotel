@@ -17,7 +17,11 @@ public abstract class Room {
         this.Availability = availability;
         this.Price = price;
     }
-
+    public Room(int number, boolean availability, double price) {
+        this.Number = number;
+        this.Availability = availability;
+        this.Price = price;
+    }
     public int getNumber() {
         return Number;
     }
@@ -40,5 +44,8 @@ public abstract class Room {
     @Override
     public String toString() {
         return "###### Room Number: " + this.Number + " ######\n- availability: " + this.Availability + "\n- price: " + this.Price + "\n";
+    }
+    public String toCSV(){
+        return this.Number + "," + this.Availability + "," + this.Price;
     }
 }

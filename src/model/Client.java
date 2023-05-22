@@ -28,4 +28,7 @@ public class Client extends Person {
     public String toString() {
         return super.toString() + " , email: " + this.Email + "\n";
     }
+    public String toCSV() {
+        return super.toCSV() + "," + this.Email;
+    }
 }

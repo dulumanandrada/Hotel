@@ -58,4 +58,12 @@ public class EmployeeRepository {
         long id = personRepository.getIdOfPerson(person);
         deleteEmployeeById(id);
     }
+    public void deleteEmployeeAll() {
+        String sql = "delete from employee";
+        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

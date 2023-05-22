@@ -1,6 +1,7 @@
 package model;
 
 public abstract class Room {
+    private long Id;
     private int Number;
     private Boolean Availability = true;
     private double Price;
@@ -8,6 +9,12 @@ public abstract class Room {
     public Room() { }
     public Room(int number, double price) {
         this.Number = number;
+        this.Price = price;
+    }
+    public Room(long id, int number, boolean availability, double price) {
+        this.Id = id;
+        this.Number = number;
+        this.Availability = availability;
         this.Price = price;
     }
 

@@ -8,15 +8,64 @@ public class HotelService {
     private final Hotel hotel;
     private final EmployeeService employeeService;
     private final ClientService clientService;
+    private final SingleRoomService singleRoomService;
+    private final DoubleRoomService doubleRoomService;
     public HotelService() {
         this.hotel = new Hotel();
         this.employeeService = new EmployeeService();
         this.clientService = new ClientService();
+        this.singleRoomService = new SingleRoomService();
+        this.doubleRoomService = new DoubleRoomService();
     }
-    public void addRoom(Hotel hotel, Room room) {
-        hotel.setNumOfRooms();
-        hotel.getRooms().add(room);
-        System.out.println("The room has been added.");
+    public void addSingleRoom(String details) {
+        try{
+            SingleRoom singleRoom = singleRoomService.build(details);
+            singleRoomService.createSingleRoom(singleRoom);
+            System.out.println("The single room has been added.");
+        }catch(NumberFormatException e) {
+            throw new TooManyProductsException("banana");
+        }
+    }
+    public void deleteSingleRoomById(String details) {
+        try{
+            long id = Long.valueOf(details);
+            singleRoomService.deleteSingleRoomById(id);
+            System.out.println("The single room has been deleted.");
+        }catch(NumberFormatException e) {
+            throw new TooManyProductsException("Invalid number for ID.");
+        }
+    }
+    public void listSingleRooms() {
+        if(singleRoomService.readAllSingleRooms().isEmpty())
+            System.out.println("There is no single room at the hotel.");
+        else {
+            singleRoomService.printSingleRooms(singleRoomService.readAllSingleRooms());
+        }
+    }
+    public void addDoubleRoom(String details) {
+        try{
+            DoubleRoom doubleRoom = doubleRoomService.build(details);
+            doubleRoomService.createDoubleRoom(doubleRoom);
+            System.out.println("The double room has been added.");
+        }catch(NumberFormatException e) {
+            throw new TooManyProductsException("banana");
+        }
+    }
+    public void deleteDoubleRoomById(String details) {
+        try{
+            long id = Long.valueOf(details);
+            doubleRoomService.deleteDoubleRoomById(id);
+            System.out.println("The double room has been deleted.");
+        }catch(NumberFormatException e) {
+            throw new TooManyProductsException("Invalid number for ID.");
+        }
+    }
+    public void listDoubleRooms() {
+        if(doubleRoomService.readAllDoubleRooms().isEmpty())
+            System.out.println("There is no double room at the hotel.");
+        else {
+            doubleRoomService.printDoubleRooms(doubleRoomService.readAllDoubleRooms());
+        }
     }
 
     public void addEmployee(String details) {

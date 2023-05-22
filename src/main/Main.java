@@ -3,9 +3,11 @@ import exception.TooManyProductsException;
 import model.*;
 import repository.ClientRepository;
 import repository.PersonRepository;
+import service.AuditService;
 import service.ClientService;
 import service.HotelService;
 
+import java.security.spec.ECField;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +15,7 @@ public class Main {
         Meniu.printDescriere();
 //        Hotel hotel = new Hotel();
         HotelService hotelService = new HotelService();
+        AuditService auditService = new AuditService();
         Scanner scanner = new Scanner(System.in);
 
 //        try {
@@ -49,14 +52,15 @@ public class Main {
 
         while(true) {
                 Meniu.printNextCommand();
-                handleTasks(hotelService, scanner);
+                handleTasks(hotelService,auditService, scanner);
         }
 
     }
 
-    public static void handleTasks(HotelService hotelService, Scanner scanner) {
+    public static void handleTasks(HotelService hotelService,AuditService auditService, Scanner scanner) {
         String line = scanner.nextLine();
-        switch (line) {
+        try {
+            switch (line) {
 //            case "check in":
 //                System.out.println("What kind of room: single/double ?");
 //                String roomType1 = scanner.nextLine();
@@ -148,32 +152,55 @@ public class Main {
 //                Meniu.printGreeting();
 //                System.exit(0);
 //                break;
-            case "a emp": //de proba
-                addEmployee(hotelService, scanner);
-                break;
-            case "d emp":
-                deleteEmployee(hotelService, scanner);
-                break;
-            case "l emp":
-                hotelService.listEmployees();
-                break;
-            case "s emp":
-                hotelService.sortEmployee();
-                break;
-            case "a clt": //de proba
-                hotelService.addClient(scanner.nextLine());
-                break;
-            case "l clt": //de proba
-                hotelService.listClients();
-                break;
-            case "d clt":
-                hotelService.deleteClientById(scanner.nextLine());
-                break;
-            case "exit":
-                Meniu.printGreeting();
-                System.exit(0);
-                break;
-            default : System.out.println("This command doesn't exist.");
+                case "a emp": //de proba
+                    addEmployee(hotelService, scanner);
+                    break;
+                case "d emp":  //de proba
+                    deleteEmployee(hotelService, scanner);
+                    break;
+                case "l emp":  //de proba
+                    hotelService.listEmployees();
+                    break;
+                case "s emp":  //de proba
+                    hotelService.sortEmployee();
+                    break;
+                case "a clt": //de proba
+                    hotelService.addClient(scanner.nextLine());
+                    break;
+                case "l clt": //de proba
+                    hotelService.listClients();
+                    break;
+                case "d clt":  //de proba
+                    hotelService.deleteClientById(scanner.nextLine());
+                    break;
+                case "a sr": //de proba
+                    hotelService.addSingleRoom(scanner.nextLine());
+                    break;
+                case "d sr": //de proba
+                    hotelService.deleteSingleRoomById(scanner.nextLine());
+                    break;
+                case "l sr": //de proba
+                    hotelService.listSingleRooms();
+                    break;
+                case "a dr": //de proba
+                    hotelService.addDoubleRoom(scanner.nextLine());
+                    break;
+                case "d dr": //de proba
+                    hotelService.deleteDoubleRoomById(scanner.nextLine());
+                    break;
+                case "l dr": //de proba
+                    hotelService.listDoubleRooms();
+                    break;
+                case "exit":
+                    Meniu.printGreeting();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("This command doesn't exist.");
+            }
+            auditService.logAction(line);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

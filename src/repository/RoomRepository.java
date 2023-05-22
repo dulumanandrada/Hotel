@@ -5,6 +5,7 @@ import model.Person;
 import model.Room;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RoomRepository {
@@ -17,6 +18,19 @@ public class RoomRepository {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    public long getIdOfRoom(Room room) {
+        String sql = "select * from room where number = ? and price = ?";
+        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            statement.setInt(1, room.getNumber());
+            statement.setDouble(2, room.getPrice());
+            ResultSet result = statement.executeQuery();
+            result.next();
+            return result.getLong(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return e.getErrorCode();
         }
     }
     public void deleteRoomById(long id) {

@@ -43,6 +43,24 @@ public class ClientRepository {
         }
         return clientList;
     }
+    public Client getClientById(long ID) {
+        String sql = "select * from client c, person p where c.id = p.id and c.id = ?";
+        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            statement.setLong(1, ID);
+            ResultSet result = statement.executeQuery();
+            while(result.next()) {
+                long id = result.getLong("id");
+                String name = result.getString("name");
+                int age = result.getInt("age");
+                String email = result.getString("email");
+                Client client = new Client(id, name, age, email);
+                return client;
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return new Client();
+    }
     public void deleteClientById(long id) {
         String sql = "delete from client where id = ?";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {

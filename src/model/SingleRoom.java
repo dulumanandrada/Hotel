@@ -1,7 +1,8 @@
 package model;
 
 public class SingleRoom extends Room {
-    private Person person1 = new Client();
+    private long Id;
+    private Person firstPerson = new Client();
 
     public SingleRoom() {
         super();
@@ -9,15 +10,19 @@ public class SingleRoom extends Room {
     public SingleRoom(int number, double price) {
         super(number, price);
     }
-    public Person getPerson1() {
-        return person1;
+    public SingleRoom(long id, int number, boolean availability, double price, Person person) {
+        super(id, number, availability, price);
+        this.firstPerson = person;
     }
-    public void setPerson1(Person person1) {
-        this.person1 = person1;
+    public Person getFirstPerson() {
+        return firstPerson;
+    }
+    public void setFirstPerson(Person firstPerson) {
+        this.firstPerson = firstPerson;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "first person: " + person1.toString() ;
+        return super.toString() + "first person: " + firstPerson.toString() ;
     }
 }

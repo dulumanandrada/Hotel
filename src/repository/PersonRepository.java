@@ -1,6 +1,7 @@
 package repository;
 
 import config.DatabaseConnection;
+import model.Client;
 import model.Employee;
 import model.Person;
 
@@ -34,6 +35,24 @@ public class PersonRepository {
             return e.getErrorCode();
         }
     }
+//    public Person getPersonById(long ID) {
+//        String sql = "select * from person where c.id = p.id and c.id = ?";
+//        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
+//            statement.setLong(1, ID);
+//            ResultSet result = statement.executeQuery();
+//            while(result.next()) {
+//                long id = result.getLong("id");
+//                String name = result.getString("name");
+//                int age = result.getInt("age");
+//                String email = result.getString("email");
+//                Client client = new Client(id, name, age, email);
+//                return client;
+//            }
+//        }catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return ;
+//    }
     public void deletePerson(Person person) {
         String sql = "delete from person where id = ?";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {

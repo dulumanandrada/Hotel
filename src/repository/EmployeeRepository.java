@@ -15,7 +15,7 @@ public class EmployeeRepository {
         PersonRepository personRepository = new PersonRepository();
         Person person = (Person) employee;
         personRepository.createPerson(person);
-        String sql = "insert into employee values (?, ?) ";
+        String sql = "insert into employee values (?, ?)";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
             statement.setLong(1, personRepository.getIdOfPerson(person));
             statement.setDouble(2, employee.getSalary());

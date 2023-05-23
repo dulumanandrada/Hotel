@@ -408,6 +408,7 @@ public class HotelService {
     public void checkOutSingleRoom(Scanner scanner) {
         try {
             System.out.println("Choose the ID of room for which you want to do check out.");
+            listSingleRooms();
             long idRoom = Long.valueOf(scanner.nextLine());
             singleRoomService.checkOutSingleRoom(idRoom);
         }catch(NumberFormatException e) {
@@ -419,6 +420,7 @@ public class HotelService {
     public void checkOutDoubleRoom(Scanner scanner) {
         try {
             System.out.println("Choose the ID of room for which you want to do check out.");
+            listDoubleRooms();
             long idRoom = Long.valueOf(scanner.nextLine());
             doubleRoomService.checkOutDoubleRoom(idRoom);
         }catch(NumberFormatException e) {

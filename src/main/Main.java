@@ -1,14 +1,7 @@
 package main;
-import exception.TooManyProductsException;
-import model.*;
-import repository.ClientRepository;
-import repository.PersonRepository;
 import service.AuditService;
-import service.ClientService;
 import service.HotelService;
-import singleton.ClientSingleton;
 
-import java.security.spec.ECField;
 import java.util.Scanner;
 
 public class Main {
@@ -29,139 +22,169 @@ public class Main {
         }
     }
 
-    public static void handleTasks(HotelService hotelService,AuditService auditService, Scanner scanner) {
+    public static void handleTasks(HotelService hotelService, AuditService auditService, Scanner scanner) {
         String line = scanner.nextLine();
         try {
             switch (line) {
-//            case "check in":
-//                System.out.println("What kind of room: single/double ?");
-//                String roomType1 = scanner.nextLine();
-//                switch (roomType1) {
-//                    case "single": {
-//                        checkInSingle(hotel, hotelService, scanner);
-//                        break;
-//                    }
-//                    case "double": {
-//                        checkInDouble(hotel, hotelService, scanner);
-//                        break;
-//                    }
-//                    default: System.out.println("This room type doesn't exist.");
-//                }
-//                break;
-//            case "check out":
-//                checkOut(hotel, hotelService, scanner);
-//                break;
-//            case "add room":
-//                System.out.println("What kind of room: single/double ?");
-//                String roomType2 = scanner.nextLine();
-//                switch (roomType2) {
-//                    case "single": {
-//                        System.out.println("PLease type the room details: number/price");
-//                        addSingleRoom(hotel, hotelService, scanner);
-//                        break;
-//                    }
-//                    case "double": {
-//                        System.out.println("PLease type the room details: number/price");
-//                        addDoubleRoom(hotel, hotelService, scanner);
-//                        break;
-//                    }
-//                    default : System.out.println("This room type doesn't exist.");
-//                }
-//                break;
-//            case "see free rooms":
-//                System.out.println("What kind of room: single/double/all ?");
-//                String roomType3 = scanner.nextLine();
-//                switch (roomType3) {
-//                    case "single": {
-//                        hotelService.listAvailableRooms(hotel, "single");
-//                        break;
-//                    }
-//                    case "double": {
-//                        hotelService.listAvailableRooms(hotel, "double");
-//                        break;
-//                    }
-//                    case "all": {
-//                        hotelService.listAvailableRooms(hotel, "all");
-//                        break;
-//                    }
-//                    default : System.out.println("This product type doesn't exist.");
-//                }
-//                break;
-//            case "see booked rooms":
-//                hotelService.listUnavailableRooms(hotel);
-//                break;
-//            case "see rooms":
-//                hotelService.listRooms(hotel);
-//                break;
-//            case "see clients":
-//                hotelService.listClients(hotel);
-//                break;
-//            case "add employee":
-//                System.out.println("Please insert details of the employee. name/age/salary");
-//                addEmployee(hotel, hotelService, scanner);
-//                break;
-//            case "delete employee":
-//                deleteEmployee(hotel, hotelService, scanner);
-//                break;
-//            case "see employees":
-//                hotelService.listEmployees(hotel);
-//                break;
-//            case "sort employees":
-//                hotelService.sortEmployee(hotel);
-//                break;
-//            case "how many":
-//                hotelService.howManyRooms(hotel);
-//                break;
-//            case "sort rooms asc":
-//                hotelService.sortRoomsAsc(hotel);
-//                hotelService.listRooms(hotel);
-//                break;
-//            case "sort rooms desc":
-//                hotelService.sortRoomsDesc(hotel);
-//                hotelService.listRooms(hotel);
-//                break;
-//            case "exit":
-//                Meniu.printGreeting();
-//                System.exit(0);
-//                break;
-                case "a emp": //de proba
-                    addEmployee(hotelService, scanner);
+                case "add employee":
+                    System.out.println("Please insert details of the employee. name/age/salary");
+                    hotelService.addEmployee(scanner.nextLine());
                     break;
-                case "d emp":  //de proba
-                    deleteEmployee(hotelService, scanner);
+                case "delete employee":
+                    System.out.println("PLease insert the ID of the employee you want to delete.");
+                    hotelService.listEmployees();
+                    hotelService.deleteEmployeeById(scanner.nextLine());
                     break;
-                case "l emp":  //de proba
+                case "list employees":
                     hotelService.listEmployees();
                     break;
-                case "s emp":  //de proba
+                case "sort employees":
                     hotelService.sortEmployee();
                     break;
-                case "a clt": //de proba
+                case "update employee":
+                    hotelService.updateEmployee(scanner);
+                    break;
+                case "add client":
+                    System.out.println("Please insert details of the employee. name/age/email");
                     hotelService.addClient(scanner.nextLine());
                     break;
-                case "l clt": //de proba
+                case "list clients":
                     hotelService.listClients();
                     break;
-                case "d clt":  //de proba
+                case "delete client":
+                    System.out.println("PLease insert the ID of the client you want to delete.");
+                    hotelService.listClients();
                     hotelService.deleteClientById(scanner.nextLine());
                     break;
-                case "a sr": //de proba
-                    hotelService.addSingleRoom(scanner.nextLine());
+                case "update client":
+                    hotelService.updateClient(scanner);
                     break;
-                case "d sr": //de proba
-                    hotelService.deleteSingleRoomById(scanner.nextLine());
+                case "add room":
+                    System.out.println("What kind of room: single/double ?");
+                    System.out.println("Please insert details of the room. number/price");
+                    String roomType1 = scanner.nextLine();
+                    switch (roomType1) {
+                        case "single": {
+                            hotelService.addSingleRoom(scanner.nextLine());
+                            break;
+                        }
+                        case "double": {
+                            hotelService.addDoubleRoom(scanner.nextLine());
+                            break;
+                        }
+                        default: System.out.println("This room type doesn't exist.");
+                    }
                     break;
-                case "l sr": //de proba
-                    hotelService.listSingleRooms();
+                case "delete room":
+                    System.out.println("What kind of room: single/double ?");
+                    String roomType2 = scanner.nextLine();
+                    System.out.println("Insert the ID of the room you want to delete.");
+                    switch (roomType2) {
+                        case "single": {
+                            hotelService.listSingleRooms();
+                            hotelService.deleteSingleRoomById(scanner.nextLine());
+                            break;
+                        }
+                        case "double": {
+                            hotelService.listDoubleRooms();
+                            hotelService.deleteDoubleRoomById(scanner.nextLine());
+                            break;
+                        }
+                        default: System.out.println("This room type doesn't exist.");
+                    }
                     break;
-                case "a dr": //de proba
-                    hotelService.addDoubleRoom(scanner.nextLine());
+                case "update room price":
+                    System.out.println("What kind of room: single/double ?");
+                    String roomType3 = scanner.nextLine();
+                    switch (roomType3) {
+                        case "single": {
+                            hotelService.updateSingleRoomPrice(scanner);
+                            break;
+                        }
+                        case "double": {
+                            hotelService.updateDoubleRoomPrice(scanner);
+                            break;
+                        }
+                        default: System.out.println("This room type doesn't exist.");
+                    }
                     break;
-                case "d dr": //de proba
-                    hotelService.deleteDoubleRoomById(scanner.nextLine());
+                case "list rooms":
+                    System.out.println("What kind of room: single/double ?");
+                    String roomType4 = scanner.nextLine();
+                    switch (roomType4) {
+                        case "single": {
+                            hotelService.listSingleRooms();
+                            break;
+                        }
+                        case "double": {
+                            hotelService.listDoubleRooms();
+                            break;
+                        }
+                        default: System.out.println("This room type doesn't exist.");
+                    }
                     break;
-                case "l dr": //de proba
-                    hotelService.listDoubleRooms();
+                case "sort rooms":
+                    System.out.println("What kind of sort: asc/desc ?");
+                    String sortType = scanner.nextLine();
+                    switch (sortType) {
+                        case "asc": {
+                            hotelService.sortRoomsAsc();
+                            break;
+                        }
+                        case "desc": {
+                            hotelService.sortRoomsDesc();
+                            break;
+                        }
+                        default: System.out.println("This sort type doesn't exist.");
+                    }
+                    break;
+                case "how many":
+                    hotelService.howManyRooms();
+                    break;
+                case "list all rooms":
+                    System.out.println("What kind of rooms available/unavailable: a/u ?");
+                    String roomType5 = scanner.nextLine();
+                    switch (roomType5) {
+                        case "a": {
+                            hotelService.listAURooms(true);
+                            break;
+                        }
+                        case "u": {
+                            hotelService.listAURooms(false);
+                            break;
+                        }
+                        default: System.out.println("This room type doesn't exist.");
+                    }
+                    break;
+                case "check in":
+                    System.out.println("What kind of room: single/double ?");
+                    String roomType6 = scanner.nextLine();
+                    switch (roomType6) {
+                        case "single": {
+                            hotelService.checkInSingle(scanner);
+                            break;
+                        }
+                        case "double": {
+                            hotelService.checkInDouble(scanner);
+                            break;
+                        }
+                        default: System.out.println("This room type doesn't exist.");
+                    }
+                    break;
+                case "check out":
+                    System.out.println("What kind of room: single/double ?");
+                    String roomType7 = scanner.nextLine();
+                    switch (roomType7) {
+                        case "single": {
+                            hotelService.checkOutSingleRoom(scanner);
+                            break;
+                        }
+                        case "double": {
+                            hotelService.checkOutDoubleRoom(scanner);
+                            break;
+                        }
+                        default: System.out.println("This room type doesn't exist.");
+                    }
                     break;
                 case "exit":
                     Meniu.printGreeting();
@@ -176,112 +199,4 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
-
-//    public static void checkInSingle(Hotel hotel, HotelService hotelService, Scanner scanner){
-//        System.out.println("Choose the number of wanted room.");
-//        hotelService.listAvailableRooms(hotel, "single");
-//        int nrwanted = Integer.valueOf(scanner.nextLine());
-//        boolean ok = false;
-//        for(Room r : hotel.getRooms()) {
-//            if(r != null && r.getNumber() == nrwanted && r.getAvailability() == true)
-//                ok = true;
-//        }
-//        if(ok == false)
-//            System.out.println("There is no room with this number to do check in for.");
-//        else {
-//            System.out.println("What's the person? name/age/email");
-//            String[] details1 = scanner.nextLine().split("/");
-//            Person person1 = new Client(details1[0], Integer.valueOf(details1[1]), details1[2]);
-//            hotelService.addBooking(hotel, nrwanted, person1);
-//            hotelService.addClient((Client) person1);
-//        }
-//    }
-//
-//    public static void checkInDouble(Hotel hotel, HotelService hotelService, Scanner scanner) {
-//        System.out.println("Choose the number of wanted room.");
-//        hotelService.listAvailableRooms(hotel, "double");
-//        int nrwanted = Integer.valueOf(scanner.nextLine());
-//        boolean ok = false;
-//        for(Room r : hotel.getRooms()) {
-//            if(r != null && r.getNumber() == nrwanted && r.getAvailability() == true)
-//                ok = true;
-//        }
-//        if(ok == false)
-//            System.out.println("There is no room with this number to do check in for.");
-//        else {
-//            System.out.println("What's the first person? name/age/email");
-//            String[] details1 = scanner.nextLine().split("/");
-//            Person person1 = new Client(details1[0], Integer.valueOf(details1[1]), details1[2]);
-//            System.out.println("What's the second person? name/age/email");
-//            String[] details2 = scanner.nextLine().split("/");
-//            Person person2 = new Client(details2[0], Integer.valueOf(details2[1]), details2[2]);
-//            hotelService.addBooking(hotel, nrwanted, person1, person2);
-//            hotelService.addClient((Client) person1);
-//            hotelService.addClient((Client) person2);
-//        }
-//    }
-//
-//    public static void checkOut(Hotel hotel, HotelService hotelService, Scanner scanner) {
-//        System.out.println("Choose a number of room for which you want to do check out.");
-//        hotelService.listUnavailableRooms(hotel);
-//        int nrwanted = Integer.valueOf(scanner.nextLine());
-//        hotelService.deleteBooking(hotel, nrwanted);
-//    }
-//
-//    public static void addSingleRoom(Hotel hotel, HotelService hotelService, Scanner scanner) {
-//        try {
-//            String[] attributes = scanner.nextLine().split("/");
-//            Room newroom = new SingleRoom(Integer.valueOf(attributes[0]), Double.valueOf(attributes[1]));
-//            hotelService.addRoom(hotel, newroom);
-//        }catch (NumberFormatException e) {
-//            System.out.println("Invalid input for creation. The room was not added.");
-//        }catch (ArrayIndexOutOfBoundsException e) {
-//            System.out.println("Not enough attributes as input. The room was not added.");
-//        }catch (TooManyProductsException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//
-//    public static void addDoubleRoom(Hotel hotel, HotelService hotelService, Scanner scanner) {
-//        try {
-//            String[] attributes = scanner.nextLine().split("/");
-//            Room newroom = new DoubleRoom(Integer.valueOf(attributes[0]), Double.valueOf(attributes[1]));
-//            hotelService.addRoom(hotel, newroom);
-//        }catch (NumberFormatException e) {
-//            System.out.println("Invalid input for creation. The room was not added.");
-//        }catch (ArrayIndexOutOfBoundsException e) {
-//            System.out.println("Not enough attributes as input. The room was not added.");
-//        }catch (TooManyProductsException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//
-    public static void addEmployee(HotelService hotelService, Scanner scanner) {
-        System.out.println("Please insert details of the employee. name/age/salary");
-        try {
-            hotelService.addEmployee(scanner.nextLine());
-//        }catch (NumberFormatException e) {
-//            System.out.println("Invalid input for creation. The employee was not added.");
-        }catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Not enough attributes as input. The employee was not added.");
-        }catch (TooManyProductsException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void deleteEmployee(HotelService hotelService, Scanner scanner) {
-        System.out.println("PLease insert the ID of the employee you want to remove.");
-                // -> readEmployees!!
-            hotelService.listEmployees();
-        try {
-            hotelService.deleteEmployeeById(scanner.nextLine());
-        }catch (NumberFormatException e) {
-            System.out.println("Invalid input for delete. The employee was not deleted.");
-        }catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Not enough attributes as input. The employee was not deleted.");
-        }catch (TooManyProductsException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
 }

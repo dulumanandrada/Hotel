@@ -18,9 +18,6 @@ public class DoubleRoom extends SingleRoom {
         super(number, availability, price, firstPerson);
         this.secondPerson = secondPerson;
     }
-    public void setSecondPerson(Person secondPerson) {
-        this.secondPerson = secondPerson;
-    }
     public Person getSecondPerson() {
         return secondPerson;
     }

@@ -1,7 +1,6 @@
 package service;
 
 import model.DoubleRoom;
-import model.SingleRoom;
 import repository.DoubleRoomRepository;
 
 import java.util.List;
@@ -27,10 +26,19 @@ public class DoubleRoomService {
     public List<DoubleRoom> readAllDoubleRooms() {
         return doubleRoomRepository.readAllDoubleRooms();
     }
+    public List<DoubleRoom> readAUDoubleRooms(boolean ok) {
+        return doubleRoomRepository.readAUDoubleRooms(ok);
+    }
     public void deleteDoubleRoomById(long id) {
         doubleRoomRepository.deleteDoubleRoomById(id);
     }
-    public void deleteDoubleRoomAll() {
-        doubleRoomRepository.deleteDoubleRoomAll();
+    public void updateDoubleRoomPrice(long id, double price) {
+        doubleRoomRepository.updateDoubleRoomPrice(id, price);
+    }
+    public void checkInDoubleRoom(long idRoom, long idFirstPerson, long idSecondPerson) {
+        doubleRoomRepository.checkInDoubleRoom(idRoom, idFirstPerson, idSecondPerson);
+    }
+    public void checkOutDoubleRoom(long idRoom) {
+        doubleRoomRepository.checkOutDoubleRoom(idRoom);
     }
 }

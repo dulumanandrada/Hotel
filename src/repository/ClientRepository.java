@@ -2,7 +2,6 @@ package repository;
 
 import config.DatabaseConnection;
 import model.Client;
-import model.Employee;
 import model.Person;
 
 import java.sql.PreparedStatement;
@@ -43,6 +42,18 @@ public class ClientRepository {
         }
         return clientList;
     }
+    public void updateClient(long id, Client client) {
+        PersonRepository personRepository = new PersonRepository();
+        String sql = "update client set email = ? where id = ?";
+        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            personRepository.updatePerson(id, (Person) client);
+            statement.setString(1, client.getEmail());
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public Client getClientById(long ID) {
         String sql = "select * from client c, person p where c.id = p.id and c.id = ?";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
@@ -62,13 +73,8 @@ public class ClientRepository {
         return new Client();
     }
     public void deleteClientById(long id) {
-        String sql = "delete from client where id = ?";
-        try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
-            statement.setLong(1, id);
-            statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        PersonRepository personRepository = new PersonRepository();
+        personRepository.deletePersonById(id);
     }
     public void deleteClientAll() {
         String sql = "delete from client";

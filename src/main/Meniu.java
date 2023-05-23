@@ -5,20 +5,24 @@ public class Meniu {
     public static String descriereCommands =
             "______________________________________________________________________\n" +
             "|                              COMMANDS                              |\n" +
-            "|- add room = add a new room                                         |\n" +
-            "|- how many = see how many single and double rooms are               |\n" +
-            "|- see rooms = view all rooms                                        |\n" +
-            "|- see free rooms = view all available rooms                         |\n" +
-            "|- see booked rooms = view all booked rooms                          |\n" +
-            "|- sort rooms asc = sort rooms after their price (min->max)          |\n" +
-            "|- sort rooms desc = sort rooms after their price (max->min)         |\n" +
-            "|- check in = add a booking (set a room as being unavailable)        |\n" +
-            "|- check out = delete a booking (set a room as being available again)|\n" +
-            "|- see clients = view all clients (people that are having a booking) |\n" +
-            "|- add employee = add a new employee                                 |\n" +
-            "|- delete employee = delete an employee after the id                 |\n" +
-            "|- see employees = view all employees                                |\n" +
-            "|- sort employees = sort employees after salary (min->max)           |\n" +
+            "|- add employee                                                      |\n" +
+            "|- update employee                                                   |\n" +
+            "|- list employees                                                    |\n" +
+            "|- sort employees                                                    |\n" +
+            "|- delete employee                                                   |\n" +
+            "|- add client                                                        |\n" +
+            "|- update client                                                     |\n" +
+            "|- list clients                                                      |\n" +
+            "|- delete client                                                     |\n" +
+            "|- add room (single/double)                                          |\n" +
+            "|- update room price (single/double)                                 |\n" +
+            "|- delete room (single/double)                                       |\n" +
+            "|- list rooms (single/double)                                        |\n" +
+            "|- sort rooms (asc/desc)                                             |\n" +
+            "|- how many = how many single rooms and double rooms                 |\n" +
+            "|- list all rooms (a/u) = available or unavailable                   |\n"+
+            "|- check in                                                          |\n"+
+            "|- check out                                                         |\n"+
             "|- exit = exiting the program                                        |\n" +
             "|____________________________________________________________________|";
     public static String nextCommand = "Please type command: ";

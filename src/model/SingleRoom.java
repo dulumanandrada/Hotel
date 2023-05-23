@@ -21,10 +21,6 @@ public class SingleRoom extends Room {
     public Person getFirstPerson() {
         return firstPerson;
     }
-    public void setFirstPerson(Person firstPerson) {
-        this.firstPerson = firstPerson;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "first person: " + firstPerson.toString() ;

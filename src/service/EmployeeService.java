@@ -21,18 +21,15 @@ public class EmployeeService {
         for(Employee e : employees)
             System.out.println(e);
     }
-
     public void createEmployee(Employee employee) {
         employeeRepository.createEmployee(employee);
-    }
-
-    public void deleteEmployeeAll() {
-        employeeRepository.deleteEmployeeAll();
     }
     public void deleteEmployeeById(long id) {
         employeeRepository.deleteEmployeeById(id);
     }
-
+    public void updateEmployee(long id, Employee employee) {
+        employeeRepository.updateEmployee(id, employee);
+    }
     public List<Employee> readAllEmployees() {
         return employeeRepository.readAllEmployees();
     }

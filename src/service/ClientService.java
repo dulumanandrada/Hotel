@@ -1,7 +1,6 @@
 package service;
 
 import model.Client;
-import model.Employee;
 import repository.ClientRepository;
 
 import java.util.List;
@@ -28,8 +27,8 @@ public class ClientService {
     public void deleteClientById(long id) {
         clientRepository.deleteClientById(id);
     }
-    public void deleteClientAll() {
-        clientRepository.deleteClientAll();
+    public void updateClient(long id, Client client) {
+        clientRepository.updateClient(id, client);
     }
     public List<Client> readAllClients() {
         return clientRepository.readAllClients();

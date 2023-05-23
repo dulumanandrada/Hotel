@@ -26,10 +26,19 @@ public class SingleRoomService {
     public List<SingleRoom> readAllSingleRooms() {
         return singleRoomRepository.readAllSingleRooms();
     }
+    public List<SingleRoom> readAUSingleRooms(boolean ok) {
+        return singleRoomRepository.readAUSingleRooms(ok);
+    }
+    public void updateSingleRoomPrice(long id, double price) {
+        singleRoomRepository.updateSingleRoomPrice(id, price);
+    }
     public void deleteSingleRoomById(long id) {
         singleRoomRepository.deleteSingleRoomById(id);
     }
-    public void deleteSingleRoomAll() {
-        singleRoomRepository.deleteSingleRoomAll();
+    public void checkInSingleRoom(long idRoom, long idPerson) {
+        singleRoomRepository.checkInSingleRoom(idRoom, idPerson);
+    }
+    public void checkOutSingleRoom(long idRoom) {
+        singleRoomRepository.checkOutSingleRoom(idRoom);
     }
 }

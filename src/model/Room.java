@@ -31,9 +31,6 @@ public abstract class Room {
     public Boolean getAvailability() {
         return Availability;
     }
-    public void setAvailability(Boolean availability) {
-        Availability = availability;
-    }
     public double getPrice() {
         return Price;
     }
@@ -43,7 +40,7 @@ public abstract class Room {
 
     @Override
     public String toString() {
-        return "###### Room Number: " + this.Number + " ######\n- availability: " + this.Availability + "\n- price: " + this.Price + "\n";
+        return "###### Room Number: " + this.Number + " ######\n- ID: " + this.Id + "\n- availability: " + this.Availability + "\n- price: " + this.Price + "\n";
     }
     public String toCSV(){
         return this.Number + "," + this.Availability + "," + this.Price;

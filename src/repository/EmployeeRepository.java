@@ -42,21 +42,22 @@ public class EmployeeRepository {
         }
         return employeeList;
     }
-
-    public void deleteEmployeeById(long id) {
-        String sql = "delete from employee where id = ?";
+    public void updateEmployee(long id, Employee employee) {
+        PersonRepository personRepository = new PersonRepository();
+        String sql = "update employee set salary = ? where id = ?";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(sql)) {
-            statement.setLong(1, id);
-            statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            personRepository.updatePerson(id, (Person) employee);
+            statement.setDouble(1, employee.getSalary());
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
-    public void deleteEmployee(Employee employee) {
+
+    public void deleteEmployeeById(long id) {
         PersonRepository personRepository = new PersonRepository();
-        Person person = (Person) employee;
-        long id = personRepository.getIdOfPerson(person);
-        deleteEmployeeById(id);
+        personRepository.deletePersonById(id);
     }
     public void deleteEmployeeAll() {
         String sql = "delete from employee";

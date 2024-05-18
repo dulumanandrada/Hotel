@@ -13,7 +13,7 @@ public class Meniu {
             "|- add client                                                        |\n" +
             "|- update client                                                     |\n" +
             "|- list clients                                                      |\n" +
-            "|- delete client                                                     |\n" +
+//            "|- delete client                                                     |\n" +
             "|- add room (single/double)                                          |\n" +
             "|- update room price (single/double)                                 |\n" +
             "|- delete room (single/double)                                       |\n" +
